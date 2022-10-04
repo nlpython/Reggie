@@ -25,4 +25,13 @@ public class GlobalException {
         log.error(e.getMessage());
         return R.error("SQL异常");
     }
+
+    /**
+     * 处理业务异常
+     */
+    @ExceptionHandler(CustomException.class)
+    public R<String> exceptionHandler(CustomException e) {
+        log.error(e.getMessage());
+        return R.error(e.getMessage());
+    }
 }

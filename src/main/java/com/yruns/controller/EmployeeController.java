@@ -1,6 +1,7 @@
 package com.yruns.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.yruns.common.BaseContext;
 import com.yruns.common.R;
 import com.yruns.pojo.Employee;
 import com.yruns.service.EmployeeService;
@@ -56,13 +57,9 @@ public class EmployeeController {
      * 员工添加
      */
     @PostMapping
-    public R<String> save(HttpServletRequest request ,@RequestBody Employee employee) {
+    public R<String> save(HttpServletRequest request, @RequestBody Employee employee) {
         // 设置初始密码并进行md5加密
         employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setCreateUser((Long) request.getSession().getAttribute("userInfo"));
-        employee.setUpdateUser((Long) request.getSession().getAttribute("userInfo"));
 
         employeeService.addEmployee(employee);
         return R.success("新增员工成功");
@@ -82,8 +79,7 @@ public class EmployeeController {
      */
     @PutMapping
     public R<String> update(HttpServletRequest request ,@RequestBody Employee employee) {
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser((Long) request.getSession().getAttribute("userInfo"));
+
         boolean flag = employeeService.updateById(employee);
         if (flag) {
             return R.success("更新成功");

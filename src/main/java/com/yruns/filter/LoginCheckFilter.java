@@ -1,6 +1,7 @@
 package com.yruns.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.yruns.common.BaseContext;
 import com.yruns.common.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.AntPathMatcher;
@@ -42,6 +43,10 @@ public class LoginCheckFilter implements Filter {
         } else {
             Object userInfo = request.getSession().getAttribute("userInfo");
             if (userInfo != null) {
+                // 记录当前线程id
+                Long employeeId = (Long) userInfo;
+                BaseContext.setCurrentId(employeeId);
+
                 // 已经登录，放行
                 filterChain.doFilter(request, response);
                 return;
