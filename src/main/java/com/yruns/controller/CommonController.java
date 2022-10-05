@@ -1,6 +1,7 @@
 package com.yruns.controller;
 
 import com.yruns.common.R;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("/common")
+@Slf4j
 public class CommonController {
 
     @Value("${reggie.path}")
@@ -70,7 +72,7 @@ public class CommonController {
             fileInputStream.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Not Found " + basePath + name);
         }
     }
 }

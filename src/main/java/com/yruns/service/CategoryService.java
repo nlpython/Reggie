@@ -18,4 +18,6 @@ public interface CategoryService {
     boolean delete(Long id);
 
     List<Category> selectByType(int type);
+
+    String selectNameById(Long id);
 }

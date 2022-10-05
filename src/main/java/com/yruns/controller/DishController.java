@@ -1,5 +1,6 @@
 package com.yruns.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yruns.common.R;
 import com.yruns.pojo.Dish;
 import com.yruns.dto.DishDto;
@@ -26,8 +27,8 @@ public class DishController {
      * 分页查询
      */
     @GetMapping("/page")
-    public R<Dish> selectWithPaging(int page, int pageSize, String dishName) {
-        return null;
+    public R<Page<DishDto>> selectWithPaging(int page, int pageSize, String dishName) {
+        return R.success(dishService.selectWithPaging(page, pageSize, dishName));
     }
 
     /**
@@ -39,7 +40,21 @@ public class DishController {
         return R.success("添加菜品成功");
     }
 
+    /**
+     * 按id查询
+     */
+    @GetMapping("/{id}")
+    public R<DishDto> selectById(@PathVariable Long id) {
+        return R.success(dishService.selectById(id));
+    }
 
-
+    /**
+     * 更新菜品
+     */
+    @PutMapping
+    public R<String> update(@RequestBody DishDto dishDto) {
+        dishService.update(dishDto);
+        return R.success("修改菜品成功");
+    }
 
 }

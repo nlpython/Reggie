@@ -80,5 +80,10 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.selectList(lambdaQueryWrapper);
     }
 
+    @Override
+    public String selectNameById(Long id) {
+        return categoryMapper.selectNameById(id);
+    }
+
 
 }
