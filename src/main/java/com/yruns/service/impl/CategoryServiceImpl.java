@@ -14,6 +14,8 @@ import com.yruns.service.SetmealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * CategoryServiceImpl
  */
@@ -68,6 +70,14 @@ public class CategoryServiceImpl implements CategoryService {
             return true;
         }
 //        return categoryMapper.deleteById(id) > 0;
+    }
+
+    @Override
+    public List<Category> selectByType(int type) {
+        LambdaQueryWrapper<Category> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Category::getType, type);
+
+        return categoryMapper.selectList(lambdaQueryWrapper);
     }
 
 

@@ -3,10 +3,13 @@ package com.yruns.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yruns.common.R;
 import com.yruns.pojo.Category;
+import com.yruns.pojo.DishFlavor;
 import com.yruns.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 /**
@@ -74,5 +77,14 @@ public class CategoryController {
             return R.error("未知原因，删除失败");
         }
     }
+
+    /**
+     * 菜品分类
+     */
+    @GetMapping("/list")
+    public R<List<Category>> selectDishFlavor(int type) {
+        return R.success(categoryService.selectByType(type));
+    }
+
 
 }
