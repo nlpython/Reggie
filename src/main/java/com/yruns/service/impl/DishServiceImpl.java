@@ -2,6 +2,7 @@ package com.yruns.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.yruns.common.R;
 import com.yruns.dto.DishDto;
 import com.yruns.mapper.DishFlavorMapper;
 import com.yruns.mapper.DishMapper;
@@ -97,7 +98,7 @@ public class DishServiceImpl implements DishService {
         // 更新dish表
         dishMapper.updateById(dishDto);
 
-        // 清楚原先dish_flavor
+        // 清除原先dish_flavor
         LambdaQueryWrapper<DishFlavor> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(DishFlavor::getDishId, dishDto.getId());
         dishFlavorMapper.delete(lambdaQueryWrapper);
@@ -107,5 +108,22 @@ public class DishServiceImpl implements DishService {
             flavor.setDishId(dishDto.getId());
             dishFlavorMapper.insert(flavor);
         }
+    }
+
+    @Override
+    public void delete(Long id) {
+        dishMapper.deleteById(id);
+    }
+
+    @Override
+    public void stop(Integer code, Long id) {
+        dishMapper.stop(code, id);
+    }
+
+    @Override
+    public List<Dish> selectByCategoryId(Long categoryId) {
+        LambdaQueryWrapper<Dish> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Dish::getCategoryId, categoryId);
+        return dishMapper.selectList(lambdaQueryWrapper);
     }
 }
