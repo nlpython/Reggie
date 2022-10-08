@@ -9,6 +9,7 @@ import com.yruns.pojo.AddressBook;
 import com.yruns.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    @Transactional
     public void setDefault(AddressBook addressBook) {
         LambdaUpdateWrapper<AddressBook> updateWrapper = new LambdaUpdateWrapper<>();
         updateWrapper.eq(AddressBook::getUserId, BaseContext.getCurrentId());
@@ -51,5 +53,10 @@ public class AddressServiceImpl implements AddressService {
         queryWrapper.eq(AddressBook::getUserId, userId);
         queryWrapper.eq(AddressBook::getIsDefault, 1);
         return addressMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public AddressBook getById(Long id) {
+        return addressMapper.selectById(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.yruns.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.yruns.mapper.UserMapper;
 import com.yruns.pojo.User;
 import com.yruns.service.UserService;
@@ -24,5 +25,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         userMapper.insert(user);
+    }
+
+    @Override
+    public User getById(Long id) {
+        LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(User::getId, id);
+        return userMapper.selectOne(lambdaQueryWrapper);
     }
 }

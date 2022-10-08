@@ -12,4 +12,6 @@ public interface AddressService {
     List<AddressBook> selectAllById(Long id);
 
     AddressBook getDefault(Long userId);
+
+    AddressBook getById(Long id);
 }
