@@ -2,7 +2,6 @@ package com.yruns.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.sun.jndi.cosnaming.IiopUrl;
 import com.yruns.common.BaseContext;
 import com.yruns.mapper.AddressMapper;
 import com.yruns.pojo.AddressBook;
