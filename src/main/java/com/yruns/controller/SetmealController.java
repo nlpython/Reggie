@@ -38,8 +38,8 @@ public class SetmealController {
      * 套餐分页查询
      */
     @GetMapping("/page")
-    public R<Page<Setmeal>> selectWithPaging(int page, int pageSize, String name) {
-        Page<Setmeal> setmealPage = setmealService.selectWithPaging(page, pageSize, name);
+    public R<Page<SetmealDto>> selectWithPaging(int page, int pageSize, String name) {
+        Page<SetmealDto> setmealPage = setmealService.selectWithPaging(page, pageSize, name);
         return R.success(setmealPage);
     }
 

@@ -26,7 +26,9 @@ public class LoginCheckFilter implements Filter {
             "/employee/login",
             "/employee/logout",
             "/backend/**",
-            "/front/**"
+            "/front/**",
+            "/user/login",
+            "/user/sendMsg"
     };
 
     @Override
@@ -41,6 +43,7 @@ public class LoginCheckFilter implements Filter {
             // 放行
             filterChain.doFilter(request, response);
         } else {
+            // 判断客户端
             Object userInfo = request.getSession().getAttribute("userInfo");
             if (userInfo != null) {
                 // 记录当前线程id
@@ -51,6 +54,19 @@ public class LoginCheckFilter implements Filter {
                 filterChain.doFilter(request, response);
                 return;
             }
+
+            // 判断移动端
+            Object user = request.getSession().getAttribute("user");
+            if (user != null) {
+                // 记录当前线程id
+                Long UserId = (Long) user;
+                BaseContext.setCurrentId(UserId);
+
+                // 已经登录，放行
+                filterChain.doFilter(request, response);
+                return;
+            }
+            log.info("拦截到 " + URI);
             response.getWriter().write(JSON.toJSONString(R.error("NOTLOGIN")));
         }
     }
