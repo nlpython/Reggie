@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yruns.dto.SetmealDto;
 import com.yruns.mapper.SetmealDishMapper;
 import com.yruns.mapper.SetmealMapper;
+import com.yruns.pojo.Category;
 import com.yruns.pojo.Setmeal;
 import com.yruns.pojo.SetmealDish;
 import com.yruns.service.CategoryService;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -87,5 +89,14 @@ public class SetmealServiceImpl implements SetmealService {
     @Override
     public void stop(Integer code, Long id) {
         setmealMapper.stop(code, id);
+    }
+
+    @Override
+    public List<Setmeal> selectSetmealByCategoryId(Long categoryId, Integer status) {
+        LambdaQueryWrapper<Setmeal> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Setmeal::getCategoryId, categoryId);
+        queryWrapper.eq(Setmeal::getStatus, status);
+        queryWrapper.orderByDesc(Setmeal::getUpdateTime);
+        return setmealMapper.selectList(queryWrapper);
     }
 }

@@ -82,13 +82,16 @@ public class CategoryController {
      * 菜品分类
      */
     @GetMapping("/list")
-    public R<List<Category>> selectDishFlavor(int type) {
-        return R.success(categoryService.selectByType(type));
+    public R<List<Category>> selectDishFlavor(Integer type) {
+        if (type != null) {
+            // 后台菜品分类
+            return R.success(categoryService.selectByType(type));
+        } else {
+            // 前台展示
+            return R.success(categoryService.selectAll());
+        }
     }
 
-    /**
-     * 套餐分类
-     */
 
 
 

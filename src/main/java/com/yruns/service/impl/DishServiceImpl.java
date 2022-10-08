@@ -121,9 +121,19 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public List<Dish> selectByCategoryId(Long categoryId) {
+    public List<DishDto> selectByCategoryId(Long categoryId) {
         LambdaQueryWrapper<Dish> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(Dish::getCategoryId, categoryId);
-        return dishMapper.selectList(lambdaQueryWrapper);
+        List<Dish> dishList = dishMapper.selectList(lambdaQueryWrapper);
+        List<DishDto> dishDtoList = dishList.stream().map((item) -> {
+            DishDto dishDto = new DishDto();
+            BeanUtils.copyProperties(item, dishDto);
+
+            Long dishId = item.getId();
+            dishDto.setFlavors(dishFlavorMapper.selectByDishId(dishId));
+            return dishDto;
+        }).collect(Collectors.toList());
+
+        return dishDtoList;
     }
 }

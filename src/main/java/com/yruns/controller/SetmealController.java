@@ -11,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * SetmealController
  */
@@ -67,6 +70,14 @@ public class SetmealController {
             setmealService.stop(code, Long.parseLong(id));
         }
         return R.success("已停售");
+    }
+
+    /**
+     * 前台 查询套餐
+     */
+    @GetMapping("/list")
+    public R<List<Setmeal>> selectSetmealByCategoryId(Long categoryId, Integer status) {
+        return R.success(setmealService.selectSetmealByCategoryId(categoryId, status));
     }
 
 

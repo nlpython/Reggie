@@ -21,5 +21,5 @@ public interface DishService {
 
     void stop(Integer code, Long id);
 
-    List<Dish> selectByCategoryId(Long categoryId);
+    List<DishDto> selectByCategoryId(Long categoryId);
 }

@@ -91,7 +91,7 @@ public class DishController {
      * 在套餐管理中展示菜品
      */
     @GetMapping("/list")
-    public R<List<Dish>> selectByCategoryId(Long categoryId) {
+    public R<List<DishDto>> selectByCategoryId(Long categoryId) {
         return R.success(dishService.selectByCategoryId(categoryId));
     }
 

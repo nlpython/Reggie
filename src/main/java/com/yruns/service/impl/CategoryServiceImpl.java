@@ -2,6 +2,7 @@ package com.yruns.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sun.org.apache.bcel.internal.generic.LMUL;
 import com.yruns.common.CustomException;
 import com.yruns.mapper.CategoryMapper;
 import com.yruns.mapper.DishMapper;
@@ -85,5 +86,10 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.selectNameById(id);
     }
 
+    @Override
+    public List<Category> selectAll() {
+        LambdaQueryWrapper<Category> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        return categoryMapper.selectList(lambdaQueryWrapper);
+    }
 
 }

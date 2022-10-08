@@ -20,4 +20,6 @@ public interface CategoryService {
     List<Category> selectByType(int type);
 
     String selectNameById(Long id);
+
+    List<Category> selectAll();
 }
