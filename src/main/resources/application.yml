@@ -23,5 +23,14 @@ mybatis-plus:
       logic-not-delete-value: 0
       logic-delete-value: 1
 
+jetcache:
+  remote:
+    default:
+      type: redis
+      host: localhost
+      port: 6379
+      poolConfig:
+        maxTotal: 50
+
 reggie:
   path: D:\img\
